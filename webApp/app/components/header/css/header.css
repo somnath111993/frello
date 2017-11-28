@@ -1,0 +1,120 @@
+
+.navbar{
+  height: 60px;
+}
+
+.brandLogo{
+  width: 61%;
+  padding:  0px !important;
+  margin-top: -14% !important;
+}
+
+.avatarText{
+  margin: 0px;
+  font-size: 1em;
+  color: #707070;
+}
+
+.login-btn{
+  display: inline !important;
+  padding-top: 10px !important;
+  padding-bottom: 10px !important;
+  background-color: #19c59f !important;
+  box-shadow: none !important;
+  margin-right: 30px !important;
+}
+
+.login-popup{
+  /*top: 100px !important;*/
+  width: 30% !important;
+  height: auto;
+  /*overflow: hidden;
+  /*background-color: #556C81; */
+  background: -webkit-linear-gradient(#5B7288, #2E475F);
+  background: -moz-linear-gradient(#5B7288, #2E475F);
+  background:  linear-gradient(#5B7288, #2E475F);
+  color: white;
+  border-radius: 5px;
+  box-shadow: none;
+  font-size: 1em;
+
+}
+
+.modal-overlay{
+  /*background-color: rgba(0,0,0,0);*/
+  /*position: absolute;*/
+  z-index: 100 !important;
+}
+
+.popupClose-icon{
+  font-size: 20px !important;
+  font-weight: bold !important;
+  float: right;
+  margin: -20px -10px 0px 0px;
+}
+
+.cred-input{
+  border-radius: 5px !important;
+  border: solid #707070 1px !important;
+  box-shadow: none !important;
+  background-color: white !important ;
+  color: #707070 !important;
+  width: 170px !important;
+  height: 30px !important;
+  text-align: center;
+  margin-bottom: 20px !important;
+}
+
+.cred-input:focus{
+  box-shadow: none !important;
+}
+
+.login-button{
+  /*border: solid 1px !important;*/
+  border-radius: 5px !important;
+  /*margin-top: 10 !important;*/
+  width: 170px !important;
+  height: 30px !important;
+  padding: 0 30px 2px 30px;
+  text-align: center;
+  line-height: 30px !important;
+  /*vertical-align:middle;*/
+  box-shadow: none;
+  background-color: #54BB98;
+}
+
+.forgot-cred{
+  margin-bottom: 0;
+  margin-top: 0;
+  color: #9CD1FF;
+  font-size: 12px;
+  cursor: pointer;
+}
+.forgot-cred:hover {
+  text-decoration: underline;
+}
+
+.user-options {
+  background-color: white !important;
+  top: 62px !important;
+  right: 25px !important;
+  border: 1px solid rgb(112, 112, 112) !important;
+}
+
+.user-options li {
+  padding: 0px !important;
+
+}
+
+.user-options li>a{
+  color:#707070 !important;
+  font-size: 1em !important;
+
+}
+
+.user-options li>a:hover{
+  background-color: #2E475F !important;
+  color: white !important;
+}
+
+

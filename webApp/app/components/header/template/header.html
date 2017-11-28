@@ -1,0 +1,94 @@
+<div class="navbar-fixed">
+    <nav class="white navbar">
+        <div class="nav-wrapper">
+            <a href="" class="brand-logo left" style="left: 1% !important;"><img class="brandLogo responsive-img"
+                                                                                 src="../../../images/frello-logo.png"></a>
+            <ul id="nav-mobile1" class="right" ng-hide='$root.loginVar' ng-show="inProgress">
+                <li class="navBtn1"><a href="#custLogin" id="custLogin-btn"
+                                       class="waves-effect waves-light btn modal-trigger green-btn"
+                >Sign In</a></li>
+
+                <!-- *******PARTNER-LOGIN FORM******* -->
+                <div id="custLogin" class="modal login-popup">
+                    <div class="modal-content"
+                         style="text-align: center; padding: 5px !important; padding-right: 15px !important;">
+                        <i class="material-icons modal-close popupClose-icon">close</i>
+                        <div style="margin-top: 35px;" class="customerCred-div">
+                            <form name="customerLogin-form" class="" ng-submit="userLogin()" autocomplete="off">
+                                <div style="margin-top: 45px; margin-bottom: 0;">
+                                    <input placeholder="Username" id="username_id" type="text"
+                                           class="validate cred-input"
+                                           ng-model="userName"
+                                           style="box-shadow:none !important;border-bottom:none !important;">
+                                </div>
+                                <div style="margin-bottom: -10px; margin-top: -10px;">
+                                    <input placeholder="Password" id="password" type="password"
+                                           class="validate cred-input" ng-model="userPass"
+                                           style="box-shadow:none !important;border-bottom:none !important;">
+                                </div>
+                                <button type="submit"
+                                        class="modal-action modal-close waves-effect waves-green btn login-button "
+                                        style="margin-top: 10px;"><b>Login</b></button>
+                                </br>
+                                <div style="height:20px;">
+                                    <span class="forgot-cred center-align">Forgot Username</span>
+                                </div>
+                                <div style="height:20px;margin-bottom:35px;">
+                                    <span class="forgot-cred center-align">Forgot Password</span>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+
+
+
+            </ul>
+
+            <ul id="nav-mobile" class="right" ng-show='$root.loginVar'>
+                <li class="row">
+                    <div class="dropdown-button" data-beloworigin="true" data-activates='userOptions' style="margin-right: 20px; cursor: pointer;">
+                        <p class="col push-s1 avatarText hide-on-small-only" style="text-transform: uppercase; margin-right: 15px;">
+                            {{$root.loggedInUser.first_name}}</p>
+                        <ng-letter-avatar data="{{$root.loggedInUser.first_name}}" avatarborder="false" dynamic="true" charCount="2"
+                        ></ng-letter-avatar>
+                    </div>
+
+                    <ul id='userOptions' class='dropdown-content user-options z-depth-1 row'
+                        style="border: solid; border-color: #707070; border-width: 1;">
+                        <li class="col xl12 l12 m12 s12"><a href="" style="cursor: not-allowed; opacity: 0.5;">Settings</a></li>
+                        <li class="col xl12 l12 m12 s12"><a href="" style="cursor: not-allowed; opacity: 0.5;">Help</a></li>
+                        <li class="col xl12 l12 m12 s12"><a href="" ng-click="logoutUser()">Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
+
+
+        </div>
+    </nav>
+</div>
+
+<script>
+
+
+    $(".button-collapse").sideNav();
+
+    $(document).ready(function () {
+        // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+        $('.modal').modal();
+
+        $('.dropdown-button').dropdown({
+                inDuration: 300,
+                outDuration: 225,
+                constrainWidth: false, // Does not change width of dropdown to that of the activator
+                hover: false, // Activate on hover
+                gutter: 0, // Spacing from edge
+                belowOrigin: false, // Displays dropdown below the button
+                alignment: 'left', // Displays dropdown with edge aligned to the left of button
+                stopPropagation: false // Stops event propagation
+            }
+        );
+    });
+
+</script>

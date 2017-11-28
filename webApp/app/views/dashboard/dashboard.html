@@ -1,0 +1,212 @@
+<div>
+    <div class="row">
+        <div style="position: fixed; right: 3%; bottom: 8%; ">
+            <a class="btn-floating btn-large waves-effect waves-light red" ng-class="{'pulse': !(categoriesCheck)}"
+               tooltipped data-position="left" data-tooltip="Add/Manage Categories"
+               data-delay="50" data-target="manageCategoriesModal">
+                <i class="material-icons">dashboard</i>
+            </a>
+        </div>
+    </div>
+    <div class="row message" ng-hide="categoriesCheck">
+        <div class="col offset-xl2 offset-l2 offset-m2 offset-s1 xl8 l8 m9 s10">
+            <h2 class="bold center-align ">Glad to have you onboard!</h2>
+        </div>
+        <div class="col offset-xl3 offset-l3 offset-m3 offset-s1 xl6 l6 m7 s10">
+            <h5 class="center-align">Start with creating Categories to group your Tasks.</h5>
+
+        </div>
+    </div>
+    <div class="row" ng-show="categoriesCheck">
+        <div class="col xl3 offset-xl1">
+            <ul class="collapsible" data-collapsible="accordion">
+                <li>
+                    <div class="collapsible-header"><i class="material-icons">add_circle_outline</i>Add Tasks</div>
+                    <div class="collapsible-body">
+                        <form name="addTaskForm">
+                            <div class="row" style="margin-bottom: 0px;">
+                                <div class="input-field col xl12">
+                                    <label class="active" style="margin-top: -10px;">Select Category</label>
+                                    <select class="browser-default" name="catSelect"
+                                            ng-options="category.category_name for category in allCategories track by category.id"
+                                            ng-model="taskObj.category" style="margin-bottom: 20px;" required>
+
+                                    </select>
+                                    <div ng-messages="addTaskForm.catSelect.$error">
+                                        <span class="input-ErrorMsg" ng-message="required" style="margin-top: -8%;">Required.</span>
+                                    </div>
+                                </div>
+                                <div class="input-field col xl12">
+                                    <input id="task_titleID" name="taskTitle" type="text" class="validate"
+                                           placeholder="Enter Task Title" ng-model="taskObj.taskTitle" required>
+                                    <label for="task_titleID" class="active">Task Title</label>
+                                    <div ng-messages="addTaskForm.taskTitle.$error">
+                                        <span class="input-ErrorMsg" ng-message="required" style="margin-top: -8%;">Required.</span>
+                                    </div>
+                                </div>
+                                <div class="input-field col xl12">
+                                    <textarea id="task_descID" name="taskDesc" class="materialize-textarea"
+                                              placeholder="Enter Task Description" ng-model="taskObj.taskDesc" required
+                                              style="overflow-y: auto;"></textarea>
+                                    <label for="task_descID" class="active">Task Description</label>
+                                    <div ng-messages="addTaskForm.taskDesc.$error">
+                                        <span class="input-ErrorMsg" ng-message="required" style="margin-top: -8%;">Required.</span>
+                                    </div>
+                                </div>
+                                <div class="input-field col xl12 center">
+                                    <a class="btn" ng-disabled="addTaskForm.$invalid" ng-click="createTask()">Create</a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="col xl3" ng-repeat="task in allTasks">
+            <ul class="collection with-header" id="">
+                <li class="collection-header valign-wrapper">
+                    <h5 style="margin: 0px; width: 90%">{{task.category_name}}</h5>
+                    <i tooltipped class="material-icons right" style="cursor: pointer;" data-tooltip="Reorder Tasks"
+                       data-delay="50" data-position="left" ng-click="reorderTasksModalOpen(task)">menu</i>
+                </li>
+                <li class="collection-item" ng-repeat="item in task.tasks" style="padding-right: 5px;">
+                    <div class="valign-wrapper">
+
+                        <p style="width: 80%"><b>{{item.task_title}}</b> <br>
+                            {{item.task_desc}}
+                        </p>
+                        <div class="secondary-content valign-wrapper">
+                            <i tooltipped data-tooltip="Change Category" data-delay="50" data-position="top"
+                               class="material-icons pointer-cursor" ng-click="changeTaskCategory(item, task.category_name)">swap_vertical_circle</i>
+                            <i tooltipped data-position="top" data-delay="50" data-tooltip="Delete Task"
+                               class="material-icons pointer-cursor" ng-click="deleteTask(item)">delete</i>
+                        </div>
+
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+<!-- manageCategoriesModal Structure -->
+<div id="manageCategoriesModal" class="manageCategoriesModal modal">
+    <div class="modal-content" style="padding: 20px;">
+        <a class="pointer-cursor modal-close" ng-click="addCategoryCheck = false; closeCategoryModal()"><i
+                class="material-icons right"
+                style="font-size: 20px; font-weight: 600; color: #7b7b7b; margin-top: -15px; margin-right: -15px;">close</i></a>
+        <div class="center">
+            <h4 class="custom-modalHeading">Add or Delete Categories</h4>
+            <p class="custom-modalSubHeading">Deleting a category, would move its tasks to "Unassigned" list</p>
+        </div>
+        <div class="divider"></div>
+        <div class="">
+            <ul class="collection cf-list" style="margin-bottom: 0px; margin-top: 10px; min-height: 200px; max-height: 250px;
+    overflow-y: auto;" scroll-glue="true">
+                <li class="collection-item" ng-repeat="category in allCategories" ng-show="categoriesCheck"
+                    style="height: 50px;">
+                    <span class="new badge left category-badge green lighten-1" data-badge-caption="{{category.category_name}}"></span>
+                    <div class="secondary-content">
+                        <i tooltipped class="material-icons small pointer-cursor" data-position="left"
+                           data-delay="50" data-tooltip="Delete Category" ng-click="deleteCategory(category)">delete_forever</i>
+                    </div>
+                </li>
+                <li ng-hide="categoriesCheck || addCategoryCheck" class="center"><h5
+                        style="margin-top: 2%; margin-bottom: 2%;">No Categories
+                    found</h5>
+                </li>
+                <li ng-show="addCategoryCheck" id="newCF_id" tabindex="1">
+                    <form name="addCategoryForm">
+                        <div class="left" style="padding-left: 3%">
+                            <input type="text" class="categoryInput-box" ng-model="categoryName"
+                                   placeholder="Category Name" name="categoryName" ng-required="required"/>
+                            <div ng-messages="addCategoryForm.categoryName.$error">
+                                <p class="input-ErrorMsg" ng-message="required">Required.</p>
+                            </div>
+                        </div>
+                        <div class="right" style="padding-top: 3%; padding-right: 5%;">
+                            <i tooltipped class="small material-icons custom-Blue pointer-cursor" data-position="top"
+                               data-delay="50"
+                               data-tooltip="Save" ng-click="createCategory()">save</i> &nbsp;
+                            <i tooltipped class="small material-icons custom-Red pointer-cursor" data-position="top"
+                               data-delay="50"
+                               data-tooltip="Cancel" ng-click="addCategoryCheck = false; categoryName = '';">cancel</i>
+                        </div>
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="modal-footer center" style="margin-bottom: 20px;">
+        <button tooltipped class="btn-floating waves-effect waves-light btn" data-position="right"
+                data-delay="50" data-tooltip="Add Custom Field" ng-click="addCategoryCheck = true"
+                ng-disabled="disableAddCFBtn" ng-hide="addCategoryCheck" style="margin-right: 3%;"><i
+                class="material-icons">add</i>
+        </button>
+    </div>
+</div>
+
+<!-- reorderTasksModal Structure -->
+<div id="reorderTasksModal" class="modal reorderTasksModal">
+    <div class="modal-content">
+        <a class="pointer-cursor modal-close"><i class="material-icons right"
+                                            style="font-size: 20px; font-weight: 600; color: #7b7b7b; margin-top: -15px; margin-right: -15px;">close</i></a>
+        <div class="center">
+            <h4 class="custom-modalHeading">Reorder Tasks</h4>
+            <p class="custom-modalSubHeading">Click and drag to reorder tasks</p>
+        </div>
+        <div class="divider"></div>
+        <ul class="collection" id="reorderTasks">
+            <li class="collection-item" ng-repeat="task in taskForSorting.tasks track by $index">
+                <span class="dragThis"><i class="material-icons left">drag_handle</i></span>
+                {{task.task_title}}
+            </li>
+        </ul>
+    </div>
+    <div class="modal-footer center">
+        <a class="btn green-btn" ng-click="reorderTasks()">Save</a>
+    </div>
+</div>
+
+
+<!-- changeCategoryModal Structure -->
+<div id="changeCategoryModal" class="modal changeCategoryModal">
+    <div class="modal-content">
+        <a class="pointer-cursor modal-close"><i class="material-icons right"
+                                            style="font-size: 20px; font-weight: 600; color: #7b7b7b; margin-top: -15px; margin-right: -15px;">close</i></a>
+        <div class="center">
+            <h4 class="custom-modalHeading">Change Task Category</h4>
+        </div>
+        <div class="divider"></div>
+        <p>Task : <b>{{taskForCatChange.task_title}}</b></p>
+        <form name="changeCategoryForm">
+            <div class="input-field col xl12">
+                <label class="active" style="margin-top: -10px;">Select Category</label>
+                <select class="browser-default" name="catSelect_change"
+                        ng-options="category.category_name for category in allCategories track by category.id"
+                        ng-model="taskForCatChange.category" style="margin-bottom: 20px; margin-top: 30px;" required>
+
+                </select>
+                <div ng-messages="changeCategoryForm.catSelect_change.$error">
+                    <span class="input-ErrorMsg" ng-message="required" style="margin-top: -3%;">Required.</span>
+                </div>
+            </div>
+        </form>
+
+    </div>
+    <div class="modal-footer center">
+        <a class="btn green-btn" ng-click="updateTaskCategory()" ng-disabled="changeCategoryForm.$invalid">Update</a>
+    </div>
+</div>
+
+
+<script>
+    $(document).ready(function () {
+        $('.modal').modal();
+        $('.collapsible').collapsible();
+        $('.manageCategoriesModal, .reorderTasksModal, .changeCategoryModal').modal({
+            dismissible: false // Modal can be dismissed by clicking outside of the modal
+        });
+    });
+</script>

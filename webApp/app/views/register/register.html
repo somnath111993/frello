@@ -1,0 +1,204 @@
+<div>
+
+    <div class="row">
+
+        <div class="col xl8 l9 m12 s12">
+            <div>
+                <div class="titlesection">
+                    <img class="row illusimg responsive-img" src="../../images/frello-logo.png" style="width: 25%">
+                    <h1 class="center-align" style="margin-top: -50px; font-variant: petite-caps;">Frello</h1>
+                    <h6 class="center-align">Frello is the fun, flexible, and free way to organize plans, projects and more.</h6>
+                    <h5 class="center-align">Get started now.</h5>
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="col xl4 l3 m12 s12 regForm" style="margin-top: 3%;" id="regForm">
+
+            <div class="card-panel white z-depth-1" style="width: 75%; margin:0px ;">
+                <form name="userRegForm" autocomplete="off">
+                    <div class="row">
+                        <div class="input-field col xl6 l12 m6 s12 regForm-input">
+                            <input id="first_name" type="text" name="firstName" ng-model='firstName'
+                                   ng-pattern="regexFirstName" placeholder="First Name"
+                                   ng-required="required">
+                            <div ng-messages="userRegForm.firstName.$error">
+                                <p class="input-ErrorMsg" style="line-height: 11px; margin-top: -19px;"
+                                   ng-message="required">First Name is required.</p>
+                                <p class="input-ErrorMsg" style="line-height: 11px; margin-top: -19px;"
+                                   ng-message="pattern">Should contain only alphabets.</p>
+                            </div>
+                        </div>
+                        <div class="input-field col xl6 l12 m6 s12 regForm-input" id="last-name">
+                            <input id="last_name" type="text" ng-model='lastName' name="lastName"
+                                   ng-pattern="regexLastName" placeholder="Last Name" ng-required="required">
+                            <div ng-messages="userRegForm.lastName.$error">
+                                <p class="input-ErrorMsg" style="line-height: 11px; margin-top: -19px;"
+                                   ng-message="required">Last Name is required.</p>
+                                <p class="input-ErrorMsg" style="line-height: 11px; margin-top: -19px;"
+                                   ng-message="pattern">Should contain only alphabets.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col xl12 l12 m12 s12 regForm-input" style="margin-top: -5px !important">
+                            <input id="userId" name="userId" type="text" name="userId"
+                                   ng-keyup="checkUsernameValid()"
+                                   ng-model='username' ng-pattern="regexUsername" minlength="6" maxlength="15"
+                                   placeholder="Username"
+                                   ng-required="required">
+                            <div ng-messages="userRegForm.userId.$error">
+                                <p class="input-ErrorMsg" style="line-height: 11px; margin-top: -19px;"
+                                   ng-message="required">Username is required.</p>
+                                <p class="input-ErrorMsg" style="line-height: 11px; margin-top: -19px;"
+                                   ng-message="minlength">Username is too short.</p>
+                                <p class="input-ErrorMsg" style="line-height: 11px; margin-top: -19px;"
+                                   ng-message="maxlength">Username is too long.</p>
+                                <p class="input-ErrorMsg" style="line-height: 11px; margin-top: -19px;"
+                                   ng-message="pattern">Should contain only alphabets and
+                                    digits.</p>
+                            </div>
+                            <span ng-if="showAvailability">
+                                <div class="available-block input-ErrorMsg" ng-if="available"
+                                     style="margin-top: -20px;">
+                                    <span style="color: #28af28; font-size: 11px; line-height: 11px;">{{username}} is available</span>
+                                </div>
+                                <div class="available-block input-ErrorMsg" ng-if="!available"
+                                     style="margin-top: -20px;">
+                                    <span style="color: #ff6666; font-size: 11px; line-height: 11px;">{{username}} is not available</span>
+                                </div>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col xl12 l12 m12 s12 regForm-input">
+                            <input id="email" type="email" ng-model='email' name="email"
+                                   placeholder="Email" ng-required="required" ng-pattern="regexEmail">
+                            <div ng-messages="userRegForm.email.$error">
+                                <p class="input-ErrorMsg" style="line-height: 11px; margin-top: -19px;"
+                                   ng-message="required">Email ID is required.</p>
+                                <p class="input-ErrorMsg" style="line-height: 11px; margin-top: -19px;"
+                                   ng-message="pattern">Should be in xyz@abc.com format.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col xl12 l12 m12 s12 regForm-input">
+                            <input id="mobile" type="tel" ng-model='mnumber' name="number"
+                                   minlength="10" maxlength="10" ng-pattern="regexPhone" placeholder="Mobile Number"
+                                   ng-required="required">
+                            <div ng-messages="userRegForm.number.$error">
+                                <p class="input-ErrorMsg" style="line-height: 11px; margin-top: -19px;"
+                                   ng-message="required">Mobile number is required.</p>
+                                <p class="input-ErrorMsg" style="line-height: 11px; margin-top: -19px;"
+                                   ng-message="minlength">Mobile number should be 10
+                                    digits.</p>
+                                <p class="input-ErrorMsg" style="line-height: 11px; margin-top: -19px;"
+                                   ng-message="maxlength">Mobile number should be 10
+                                    digits.</p>
+                                <p class="input-ErrorMsg" style="line-height: 11px; margin-top: -19px;"
+                                   ng-message="pattern">Should contain only digits.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col xl12 l12 m12 s12 regForm-input">
+                            <input id="password" type="password" ng-model='password' id="password"
+                                   name="password" ng-minlength="6"
+                                   placeholder="Password" ng-required="required">
+                            <div ng-messages="userRegForm.password.$error">
+                                <p class="input-ErrorMsg" style="line-height: 11px; margin-top: -19px;"
+                                   ng-message="required">Password is required.</p>
+                                <p class="input-ErrorMsg" style="line-height: 11px; margin-top: -19px;"
+                                   ng-message="minlength">Password is too short.</p>
+                                <p class="input-ErrorMsg" style="line-height: 11px; margin-top: -19px;"
+                                   ng-message="maxlength">Password is too long.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col xl12 l12 m12 s12 regForm-input">
+                            <input id="cnfrmpassword" type="password" name="cPassword"
+                                   ng-model='cPassword' ng-change="matchPassword()"
+                                   placeholder="Confirm Password" ng-required="required">
+                            <div ng-messages="userRegForm.cPassword.$error">
+                                <p class="input-ErrorMsg" style="line-height: 11px; margin-top: -19px;"
+                                   ng-message="required">Confirm Password is required.</p>
+                            </div>
+                            <div class="" ng-if="passMatchFailed" style="margin-top: -25px;">
+                                <span style="color: #ee876f; font-size: 11px;">Passwords do not match.</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col xl12 l12 m12 s12 regForm-input">
+                            <input type="checkbox" id="option3" type="checkbox" name="field"
+                                   value="option3" ng-model="$root.termsConditionAccepted"/>
+                            <label class="terms" for="option3">
+                                I agree to the <a href="#agreementModal" class="terms-link">Client Agreement and Terms
+                                Of Engagement</a>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="center" style="margin-top: 10px; padding: 10px;">
+                        <button id="register-btn" class="waves-effect waves-light btn signUp-btn"
+                                style="background-color: #54BB98;" ng-disabled="disableSubmit()" ng-click="submit()">
+                            Sign Up
+                        </button>
+                    </div>
+
+
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<div id="agreementModal" class="modal">
+    <div class="modal-content">
+        <h4 class="center">Client Agreement & Terms of Engagement</h4>
+        <div class="divider"></div>
+        <div class="scrollable-terms">
+            <p style="font-size: 14px; padding: 5px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla et leo quam. Cras venenatis purus non
+                libero molestie lobortis. Fusce dictum at lectus vitae vestibulum. Cras egestas tincidunt ante nec
+                scelerisque. Ut imperdiet augue vitae mi sodales, sed egestas massa commodo. Nulla hendrerit, tortor et
+                laoreet scelerisque, dolor velit sollicitudin elit, sed tristique elit magna at quam. Vivamus quam elit,
+                convallis in diam nec, convallis lacinia ante. Proin placerat porta sem, a rutrum eros accumsan at.
+                Nulla congue leo ac hendrerit bibendum. <br>
+
+                Maecenas sit amet facilisis massa. Mauris ultricies vestibulum velit, eleifend dignissim ante aliquet
+                eu. Pellentesque magna est, lacinia non dolor vitae, porttitor blandit ligula. Sed tristique risus in
+                felis bibendum, vitae ultrices est bibendum. Nam vel fringilla turpis. Maecenas condimentum, diam a
+                pellentesque scelerisque, <br>mauris urna molestie ipsum, eget blandit ipsum purus ac nulla. Curabitur
+                scelerisque euismod turpis. Cras rhoncus rutrum nisi, eu laoreet nisl condimentum non. Quisque lacinia
+                nibh est, rutrum sollicitudin velit egestas id. Donec libero ante, laoreet at consequat vitae, dapibus
+                sit amet lorem. Nulla nec dignissim augue. Sed vestibulum turpis id ultrices suscipit. Nam pellentesque
+                lacinia tristique. <br>
+
+                Morbi eget massa sit amet dolor tempus rutrum. Nam aliquam ante at turpis maximus, in ornare odio
+                convallis. Mauris orci purus, cursus a aliquet vel, convallis id felis. Duis pretium ligula leo, eget
+                tempus sapien laoreet sollicitudin. Mauris orci augue, mollis non dolor vitae, ultrices maximus risus.
+                Nam pretium elementum nibh, eget egestas risus rhoncus in. Donec non risus pellentesque, aliquet massa
+                sit amet, finibus felis. Sed vitae lectus justo. Nunc eget euismod mauris. In hac habitasse platea
+                dictumst. Pellentesque lectus dolor, molestie ut maximus vel, ullamcorper nec lorem. <br> Interdum et
+                malesuada fames ac ante ipsum primis in faucibus. Proin posuere ullamcorper lectus nec fringilla. Nullam
+                dictum auctor elit, eget tristique felis ornare eget. Nam tempor luctus augue a luctus. Mauris mattis,
+                sapien sit amet pellentesque faucibus, quam nunc gravida nisi, vel sollicitudin dui ipsum nec augue.</p>
+            <br/>
+        </div>
+
+    </div>
+</div>
+
+
+<script>
+    $(document).ready(function () {
+        $('.modal').modal();
+    });
+
+
+</script>
